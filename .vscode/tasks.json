@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dockerRun": {
+                "customOptions": "--workdir=/usr/src/app",
+                "image": "node:14-buster",
+                "command": "bash -c 'yarn install && yarn run start:dev --debug 0.0.0.0:9229'",
+                "ports": [{
+                    "hostPort": 4000,
+                    "containerPort": 4000
+                }],
+                "volumes": [
+                    {
+                        "localPath": "${workspaceFolder}",
+                        "containerPath": "/usr/src/app"
+                    }
+                ],
+                "env": {
+                    "DEBUG": "*",
+                    "NODE_ENV": "development"
+                }
+            },
+            "node": {
+                "enableDebugging": true,
+            }
+        }
+    ]
+}
